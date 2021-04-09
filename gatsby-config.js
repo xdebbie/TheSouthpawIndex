@@ -51,6 +51,14 @@ module.exports = {
                 siteUrl: 'https://gatsby-starter-typescript-plus.netlify.com'
             }
         },
+        {
+            resolve: 'gatsby-plugin-react-svg',
+            options: {
+                rule: {
+                    include: /svg/
+                }
+            }
+        },
         'gatsby-plugin-dark-mode',
         'gatsby-plugin-emotion',
         'gatsby-plugin-typescript',

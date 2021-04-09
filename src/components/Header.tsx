@@ -4,15 +4,18 @@ import { transparentize } from 'polished'
 import { Link } from 'gatsby'
 
 import { ThemeToggler } from 'gatsby-plugin-dark-mode'
-import { heights, dimensions, colors } from '../styles/variables'
+import { heights, dimensions, colours } from '../styles/variables'
 import Container from './Container'
+
+// import TSILogo from '../../static/svg/logo.svg'
+import TSILogo from '../assets/svg/logo.svg'
 
 const StyledHeader = styled.header`
     width: 100vw;
     height: ${heights.header}px;
     padding: 0 ${dimensions.containerPadding}rem;
-    background-color: ${colors.brand};
-    color: ${transparentize(0.5, colors.white)};
+    background-color: ${colours.light.primary};
+    color: ${transparentize(0.5, colours.white)};
 `
 
 const HeaderInner = styled(Container)`
@@ -20,18 +23,7 @@ const HeaderInner = styled(Container)`
     flex-direction: column;
     align-items: center;
     height: 100%;
-`
-
-const HomepageLink = styled(Link)`
-    color: ${colors.white};
-    font-size: 1.5rem;
-    font-weight: 600;
-    padding-top: 1.5rem;
-
-    &:hover,
-    &:focus {
-        text-decoration: none;
-    }
+    padding: 1rem 0;
 `
 
 const DarkToggle = styled.div`
@@ -41,7 +33,7 @@ const DarkToggle = styled.div`
     justify-content: center;
     margin-top: 10px;
     position: absolute;
-    right: -80px;
+    right: 10px;
 
     &:before,
     &:after {
@@ -98,27 +90,56 @@ const DarkToggle = styled.div`
     }
 `
 
+const Logo = styled(TSILogo)`
+    width: auto;
+    height: 80px;
+`
+
+const Row = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin-top: 1rem;
+    width: 100px;
+    text-align: center;
+    align-self: center;
+    justify-content: space-between;
+`
+
+const LinkTo = styled(Link)`
+    color: hotpink;
+
+    &:hover {
+        color: yellow;
+    }
+`
+
 interface HeaderProps {
     title: string
 }
 
 const Header: React.FC<HeaderProps> = ({ title }) => (
     <StyledHeader>
+        <ThemeToggler>
+            {({ theme, toggleTheme }) => (
+                <DarkToggle>
+                    <input
+                        type="checkbox"
+                        id="toggle"
+                        onChange={e => toggleTheme(e.target.checked ? 'dark' : 'light')}
+                        checked={theme === 'dark'}
+                    />
+                    <label htmlFor="toggle"></label>
+                </DarkToggle>
+            )}
+        </ThemeToggler>
         <HeaderInner>
-            <ThemeToggler>
-                {({ theme, toggleTheme }) => (
-                    <DarkToggle>
-                        <input
-                            type="checkbox"
-                            id="toggle"
-                            onChange={e => toggleTheme(e.target.checked ? 'dark' : 'light')}
-                            checked={theme === 'dark'}
-                        />
-                        <label htmlFor="toggle"></label>
-                    </DarkToggle>
-                )}
-            </ThemeToggler>
-            <HomepageLink to="/">{title}</HomepageLink>
+            <Link to="/">
+                <Logo />
+            </Link>
+            <Row>
+                <LinkTo to="/bass">Bass</LinkTo>
+                <LinkTo to="/guitar">Guitar</LinkTo>
+            </Row>
         </HeaderInner>
     </StyledHeader>
 )

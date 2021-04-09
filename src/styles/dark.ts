@@ -1,16 +1,16 @@
-import { dimensions, fonts, colors, breakpoints } from './variables'
+import { dimensions, fonts, colours, breakpoints } from './variables'
 import { getEmSize } from './mixins'
 
 export default `
   body {
     font-family: ${fonts.sansSerif};
-    color: ${colors.black};
-    background-color: ${colors.white};
+    color: ${colours.black};
+    background-color: ${colours.light.background};
 
     &.dark {
         -webkit-font-smoothing: antialiased;
-        background-color: black;
-        color whitesmoke;
+        background-color: ${colours.black};
+        color: ${colours.white};
 
         a {  
             color: hotpink;
@@ -23,7 +23,7 @@ export default `
   }
 
   a {
-    color: ${colors.brand};
+    color: ${colours.brand};
     text-decoration: none;
 
     &:hover,
